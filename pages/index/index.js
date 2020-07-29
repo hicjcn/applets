@@ -62,5 +62,10 @@ Page({
         console.log('点击确认')
       }
     })
+  },
+  goToDetail: function(e) {
+    wx.navigateTo({
+      url: '../detail/detail',
+    })
   }
 })

@@ -13,7 +13,7 @@
   </view>
 </view>
 
-<view class="cu-card case" wx:for="i in 10">
+<view class="cu-card case" wx:key="i" wx:for="i in 10">
   <view class="cu-item shadow">
     <view class="image">
       <image src="https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg" mode="widthFix"></image>
@@ -28,7 +28,7 @@
           <button class="cu-btn round shadow block bg-blue" bindtap="noticeHR"><text class="cuIcon-comment"></text>聊一聊</button>
         </view>
         <view class="flex-sub padding-sm margin-xs radius">
-          <button class="cu-btn round shadow block bg-blue"><text class="cuIcon-copy"></text>详情</button>
+          <button class="cu-btn round shadow block bg-blue" bindtap="goToDetail"><text class="cuIcon-copy"></text>详情</button>
         </view>
       </view>
     </view>
