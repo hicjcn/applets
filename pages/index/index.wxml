@@ -25,7 +25,7 @@
     <view class="cu-list menu-avatar">
       <view class="flex">
         <view class="flex-sub padding-sm margin-xs radius">
-          <button class="cu-btn round shadow block bg-blue"><text class="cuIcon-comment"></text>聊一聊</button>
+          <button class="cu-btn round shadow block bg-blue" bindtap="noticeHR"><text class="cuIcon-comment"></text>聊一聊</button>
         </view>
         <view class="flex-sub padding-sm margin-xs radius">
           <button class="cu-btn round shadow block bg-blue"><text class="cuIcon-copy"></text>详情</button>

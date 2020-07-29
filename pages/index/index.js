@@ -51,5 +51,16 @@ Page({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
+  },
+  noticeHR: function(e) {
+    wx.showModal({
+      title: '成功',
+      content: '已通知HR沟通此候选人',
+      showCancel: false,
+      confirmText: '我知道了',
+      success (res) {
+        console.log('点击确认')
+      }
+    })
   }
 })
