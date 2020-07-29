@@ -14,12 +14,12 @@
 </view> -->
 
 <view class="cu-card case" wx:key="i" wx:for="i in 10">
-  <view class="cu-item shadow">
+  <view class="cu-item shadow b-shadow">
     <view class="image">
       <!-- <image src="https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg" mode="widthFix"></image> -->
       <view class="cu-tag bg-blue">推荐</view>
       <view class="cu-card article">
-        <view class="cu-item shadow border-blue">
+        <view class="cu-item">
           <view>
             <view class="flex padding justify-center margin-top">
               <view class="text-xl text-bold">张三</view>
@@ -54,7 +54,7 @@
         </view>
       </view>
     </view>
-    <view class="cu-list menu-avatar">
+    <view class="cu-list menu-avatar color-gray">
       <view class="flex">
         <view class="flex-sub padding-sm margin-xs radius">
           <button class="cu-btn round shadow block bg-blue" bindtap="noticeHR"><text class="cuIcon-comment"></text>聊一聊</button>

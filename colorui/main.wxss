@@ -28,8 +28,8 @@ page {
 	--black: #333333;
 	--darkGray: #666666;
 	--gray: #aaaaaa;
-	--ghostWhite: #f1f1f1;
-	--white: #ffffff;
+	--ghostWhite: #f4f2f4;
+	--white: #fffeff;
 	/* 浅色 */
 	--redLight: #fadbd9;
 	--orangeLight: #fde6d2;
@@ -2233,7 +2233,7 @@ button.icon.lg {
 	display: block;
 	background-color: var(--white);
 	overflow: hidden;
-	border-radius: 10rpx;
+	border-radius: 30rpx;
 	margin: 30rpx;
 }
 
