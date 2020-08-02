@@ -1,4 +1,4 @@
-const host = 'http://139.159.134.67:30080'
+const host = 'https://test.1xhitech.com'
 
 /**
  * 请求头 'Authorization': "Bearer " + wx.getStorageSync("token"),
