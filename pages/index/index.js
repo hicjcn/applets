@@ -45,7 +45,6 @@ Page({
         }
       })
     }
-    this.getPageData()
   },
   getPageData: function(pageNo = 1) {
     const that = this
@@ -123,8 +122,44 @@ Page({
   },
   goToDetail: function(e) {
     let id = e.currentTarget.dataset.id
-    wx.navigateTo({
-      url: '../detail/detail?id=' + id,
+    console.log('id', id)
+    // 打开文件
+    wx.showLoading({
+      title: '加载中',
     })
-  }
+    wx.downloadFile({
+      url: http.host + '/sysFileInfo/download?id=' + id,
+      success: function (res) {
+        console.log(res)
+        var filePath = res.tempFilePath
+        wx.openDocument({
+          filePath: filePath,
+          fileType: 'pdf',
+          success: function (res) {
+            console.log('打开文档成功')
+          },
+          fail: function (err) {
+            console.log(err)
+          }
+        })
+      },
+      complete: function (res) {
+        wx.hideLoading()
+      }
+    })    
+
+    // wx.navigateTo({
+    //   url: '../detail/detail?id=' + id,
+    // })
+  },
+    /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    this.setData({
+      pageData: []
+    })
+    this.getPageData()
+  },
+
 })

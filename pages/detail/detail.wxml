@@ -3,7 +3,7 @@
   <view slot="content">详情</view>
 </cu-custom>
 
-<view class="cu-card case isCard?'no-card">
+<!-- <view class="cu-card case isCard?'no-card">
   <view class="cu-item shadow">
     <view class="flex padding justify-center margin-top">
       <view class="text-xl text-bold">张三</view>
@@ -46,4 +46,4 @@
     </view>
 
   </view>
-</view>
+</view> -->
