@@ -1,12 +1,14 @@
 //index.js
 //获取应用实例
 const app = getApp()
+var http = require('../../utils/request')
 
 Page({
   data: {
     StatusBar: app.globalData.StatusBar,
     CustomBar: app.globalData.CustomBar,
     userInfo: {},
+    pageData: [],
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
@@ -43,6 +45,38 @@ Page({
         }
       })
     }
+    this.getPageData()
+  },
+  getPageData: function(pageNo = 1) {
+    const that = this
+    http.getRequest('/api/candidates', {
+      pageNo: pageNo
+    }, function(res) {
+      if (res.success) {
+        let pageData = that.data.pageData
+        pageData = pageData.concat(res.data)
+        console.log(pageData)
+        that.setData({
+          pageData: pageData
+        })
+      } else{
+        wx.showModal({
+          title: '提示',
+          content: res.message,
+          showCancel: false,
+          confirmText: '我知道了',
+          success (res) {
+            console.log('点击确认')
+          }
+        })
+      }
+    }, function(err) {
+      wx.showToast({
+        title: '获取数据失败',
+        icon: 'none',
+        duration: 2000
+      })
+    })
   },
   getUserInfo: function(e) {
     console.log(e)
@@ -53,19 +87,44 @@ Page({
     })
   },
   noticeHR: function(e) {
-    wx.showModal({
-      title: '成功',
-      content: '已通知HR沟通此候选人',
-      showCancel: false,
-      confirmText: '我知道了',
-      success (res) {
-        console.log('点击确认')
+    const that = this
+    let id = e.currentTarget.dataset.id
+    http.getRequest('/api/chat}', {
+      id: id
+    }, function(res) {
+      if (res.success) {
+        wx.showModal({
+          title: '成功',
+          content: '已通知HR沟通此候选人',
+          showCancel: false,
+          confirmText: '我知道了',
+          success (res) {
+            console.log('点击确认')
+          }
+        })
+      } else{
+        wx.showModal({
+          title: '提示',
+          content: res.message,
+          showCancel: false,
+          confirmText: '我知道了',
+          success (res) {
+            console.log('点击确认')
+          }
+        })
       }
+    }, function(err) {
+      wx.showToast({
+        title: '获取数据失败',
+        icon: 'none',
+        duration: 2000
+      })
     })
   },
   goToDetail: function(e) {
+    let id = e.currentTarget.dataset.id
     wx.navigateTo({
-      url: '../detail/detail',
+      url: '../detail/detail?id=' + id,
     })
   }
 })

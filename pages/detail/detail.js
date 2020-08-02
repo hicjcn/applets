@@ -1,4 +1,6 @@
 // pages/detail/detail.js
+var http = require('../../utils/request')
+
 Page({
 
   /**
@@ -12,7 +14,25 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    var id  = options.id
+    console.log('id', id)
+    // 打开文件
+    wx.downloadFile({
+      url: http.host + '/sysFileInfo/download?id=' + id,
+      success: function (res) {
+        console.log(res)
+        var filePath = res.tempFilePath
+        wx.openDocument({
+          filePath: filePath,
+          success: function (res) {
+            console.log('打开文档成功')
+          },
+          fail: function (err) {
+            console.log(err)
+          }
+        })
+      }
+    })    
   },
 
   /**
