@@ -88,7 +88,7 @@ Page({
   noticeHR: function(e) {
     const that = this
     let id = e.currentTarget.dataset.id
-    http.getRequest('/api/chat}', {
+    http.getRequest('/api/chat', {
       id: id
     }, function(res) {
       if (res.success) {
