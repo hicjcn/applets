@@ -13,8 +13,17 @@
   </view>
 </view> -->
 
-	<listView class='listView_box' length='{{pageData.length}}' emptyText='暂无数据' loadMore='{{false}}' bind:onRefresh='onRefresh' bind:onLoadMore='onLoadMore'>
-		
+	<!-- <listView class='listView_box' length='{{pageData.length}}' emptyText='暂无数据' loadMore='{{false}}' bind:onRefresh='onRefresh' bind:onLoadMore='onLoadMore'> -->
+<scroll id="scroll"
+  requesting="{{requesting}}"
+  end="{{end}}"
+  listCount="{{pageData.length}}"
+  top-size="10"
+  enable-back-to-top="false"
+  color="#3F82FD"
+  bind:refresh="onRefresh"
+  bind:more="onLoadMore">
+
   <view class="cu-card case" wx:key="index" wx:for="{{pageData}}">
     <view class="cu-item shadow b-shadow">
       <view class="image">
@@ -70,5 +79,6 @@
 
   </view>
     
-</listView>
+</scroll>
+<!-- </listView> -->
 

@@ -3,6 +3,8 @@
 const app = getApp()
 var http = require('../../utils/request')
 const cachePath = wx.env.USER_DATA_PATH + '/cache/'
+let pageStart = 1;
+
 Page({
   data: {
     StatusBar: app.globalData.StatusBar,
@@ -10,6 +12,9 @@ Page({
     userInfo: {},
     pageData: [],
     hasUserInfo: false,
+    requesting: false,
+		end: true,
+		page: pageStart,
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
   onLoad: function () {
@@ -42,9 +47,20 @@ Page({
   },
   getPageData: function(pageNo = 1, callback) {
     const that = this
+    that.setData({
+			requesting: true
+		})
+
+		wx.showNavigationBarLoading()
+
     http.getRequest('/api/candidates', {
       pageNo: pageNo
     }, function(res) {
+      that.setData({
+				requesting: false
+			})
+			wx.hideNavigationBarLoading()
+
       if (res.success) {
         let pageData = that.data.pageData
         pageData = pageData.concat(res.data)
@@ -52,9 +68,6 @@ Page({
         that.setData({
           pageData: pageData
         })
-        if (callback) {
-          callback.success()
-        }
       } else{
         wx.showModal({
           title: '提示',
@@ -65,9 +78,6 @@ Page({
             console.log('点击确认')
           }
         })
-        if (callback) {
-          callback.fail()
-        }
       }
     }, function(err) {
       wx.showToast({
@@ -75,9 +85,11 @@ Page({
         icon: 'none',
         duration: 2000
       })
-      if (callback) {
-        callback.fail()
-      }
+
+      that.setData({
+				requesting: false
+			})
+			wx.hideNavigationBarLoading()
     })
   },
   getUserInfo: function(e) {
@@ -190,10 +202,9 @@ Page({
     this.getPageData(1, callback)
   },
   onLoadMore: function (e) {
-      var callback = e.detail;
-      setTimeout(function () {
-    callback.fail();
-      }, 3000)
+    this.setData({
+      end: true
+    })
   },
 
   onLoad: function () {
