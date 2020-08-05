@@ -2,7 +2,7 @@
 //获取应用实例
 const app = getApp()
 var http = require('../../utils/request')
-
+const cachePath = wx.env.USER_DATA_PATH + '/cache/'
 Page({
   data: {
     StatusBar: app.globalData.StatusBar,
@@ -11,12 +11,6 @@ Page({
     pageData: [],
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo')
-  },
-  //事件处理函数
-  bindViewTap: function() {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
   },
   onLoad: function () {
     if (app.globalData.userInfo) {
@@ -120,21 +114,22 @@ Page({
       })
     })
   },
-  goToDetail: function(e) {
-    let id = e.currentTarget.dataset.id
-    console.log('id', id)
+
+  downloadFile: function (id, name) {
     // 打开文件
     wx.showLoading({
       title: '加载中',
     })
+    
     wx.downloadFile({
+      filePath: cachePath + name,
       url: http.host + '/sysFileInfo/download?id=' + id,
       success: function (res) {
         console.log(res)
-        var filePath = res.tempFilePath
+        var filePath = cachePath + name
         wx.openDocument({
+          showMenu: true,
           filePath: filePath,
-          fileType: 'pdf',
           success: function (res) {
             console.log('打开文档成功')
           },
@@ -147,7 +142,32 @@ Page({
         wx.hideLoading()
       }
     })    
+  },
+  goToDetail: function(e) {
+    const that = this
+    let id = e.currentTarget.dataset.id
+    let name = e.currentTarget.dataset.name
 
+    // 检查参数
+    if (!id || !name) {
+      wx.showToast({
+        title: '未获取到文件参数',
+        icon: 'none',
+        duration: 2000
+      })
+    }
+
+    // 检查文件夹
+    let fm = wx.getFileSystemManager()
+    try {
+      // 访问成功则存在
+      fm.accessSync(cachePath)
+    } catch (error) {
+      // 不存在则新建
+      fm.mkdirSync(cachePath, true)
+    }
+  
+    that.downloadFile(id, name)
     // wx.navigateTo({
     //   url: '../detail/detail?id=' + id,
     // })
