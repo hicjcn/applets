@@ -40,7 +40,7 @@ Page({
       })
     }
   },
-  getPageData: function(pageNo = 1) {
+  getPageData: function(pageNo = 1, callback) {
     const that = this
     http.getRequest('/api/candidates', {
       pageNo: pageNo
@@ -52,6 +52,9 @@ Page({
         that.setData({
           pageData: pageData
         })
+        if (callback) {
+          callback.success()
+        }
       } else{
         wx.showModal({
           title: '提示',
@@ -62,6 +65,9 @@ Page({
             console.log('点击确认')
           }
         })
+        if (callback) {
+          callback.fail()
+        }
       }
     }, function(err) {
       wx.showToast({
@@ -69,6 +75,9 @@ Page({
         icon: 'none',
         duration: 2000
       })
+      if (callback) {
+        callback.fail()
+      }
     })
   },
   getUserInfo: function(e) {
@@ -172,14 +181,22 @@ Page({
     //   url: '../detail/detail?id=' + id,
     // })
   },
-    /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
+
+  onRefresh:function(e){
+    var callback = e.detail;
     this.setData({
       pageData: []
     })
-    this.getPageData()
+    this.getPageData(1, callback)
+  },
+  onLoadMore: function (e) {
+      var callback = e.detail;
+      setTimeout(function () {
+    callback.fail();
+      }, 3000)
   },
 
+  onLoad: function () {
+    this.getPageData()
+  }
 })

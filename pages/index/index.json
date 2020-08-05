@@ -1,3 +1,5 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "listView": "/component/listView/listView"
+  }
 }
