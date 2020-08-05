@@ -18,9 +18,8 @@
   requesting="{{requesting}}"
   end="{{end}}"
   listCount="{{pageData.length}}"
-  top-size="10"
-  enable-back-to-top="false"
-  color="#3F82FD"
+  top-size="{{topSize}}"
+  bottom-size="{{bottomSize}}"
   bind:refresh="onRefresh"
   bind:more="onLoadMore">
 
@@ -79,6 +78,7 @@
 
   </view>
     
+  <view style="height: 50px;"></view>
 </scroll>
 <!-- </listView> -->
 

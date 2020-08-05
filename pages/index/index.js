@@ -13,7 +13,9 @@ Page({
     pageData: [],
     hasUserInfo: false,
     requesting: false,
-		end: true,
+    end: false,
+    topSize: 10,
+		bottomSize: 30,
 		page: pageStart,
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
@@ -203,8 +205,25 @@ Page({
   },
   onLoadMore: function (e) {
     this.setData({
-      end: true
-    })
+			requesting: true
+		})
+
+		wx.showNavigationBarLoading()
+
+    setTimeout(() => {
+			this.setData({
+				requesting: false
+			})
+
+			wx.hideNavigationBarLoading()
+
+      this.setData({
+        page: currentPage + 1,
+        end: false
+      })
+
+		}, 1000);
+
   },
 
   onLoad: function () {

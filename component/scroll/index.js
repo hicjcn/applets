@@ -50,7 +50,7 @@ Component({
 		// 颜色
 		color: {
 			type: String,
-			value: ""
+			value: "#0A74F9"
 		},
     // iOS点击顶部状态栏、安卓双击标题栏时，滚动条返回顶部，只支持竖向
     enableBackToTop: {
