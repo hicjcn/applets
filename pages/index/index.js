@@ -13,6 +13,7 @@ Page({
     requesting: false,
     page: 1,
     TabCur: 0,
+    isMyTab: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
   onLoad: function () {
@@ -104,9 +105,22 @@ Page({
     wx.stopPullDownRefresh()
   },
 
+  toMy() {
+    this.setData({
+      isMyTab: true
+    })
+  },
+
+  toHome(){
+    this.setData({
+      isMyTab: false
+    })
+  },
+
   tabSelect(e) {
     this.setData({
       TabCur: e.currentTarget.dataset.id
     })
-  }
+  },
+
 })
