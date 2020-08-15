@@ -1,0 +1,7 @@
+{
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "dark",
+  "usingComponents": {
+    "CandidateList": "/component/candidate-list/candidate-list"
+  }
+}

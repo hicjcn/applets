@@ -1,2 +1,55 @@
 <!--component/candidate-list.wxml-->
-<text>component/candidate-list.wxml</text>
+<view class="cu-card case" wx:key="index" wx:for="{{data}}">
+  <view class="cu-item shadow b-shadow">
+    <view class="image">
+      <!-- <image src="https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg" mode="widthFix"></image> -->
+      <!-- <view class="cu-tag bg-blue">推荐</view> -->
+      <view class="cu-card article">
+        <view class="cu-item">
+          <view>
+            <view class="flex padding justify-center margin-top">
+              <view class="text-xl text-bold">{{item.name}}</view>
+            </view>
+            <view class="cu-list menu">
+              <view class="cu-item">
+                <view class="content">
+                  <text class="cuIcon-home text-grey"></text>
+                  <text class="text-grey">公司：{{item.company}}</text>
+                </view>
+              </view>
+              <view class="cu-item">
+                <view class="content">
+                  <text class="cuIcon-people text-grey"></text>
+                  <text class="text-grey">职位：{{item.position}}</text>
+                </view>
+              </view>
+              <view class="cu-item">
+                <view class="content">
+                  <text class="cuIcon-activity text-grey"></text>
+                  <text class="text-grey">方向：{{item.direction}}</text>
+                </view>
+              </view>
+              <view class="cu-item">
+                <view class="content">
+                  <text class="cuIcon-medal text-grey"></text>
+                  <text class="text-grey">教育：{{item.education}}</text>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="cu-list menu-avatar color-gray">
+      <view class="flex">
+        <view class="flex-sub padding-sm margin-xs radius">
+          <button class="cu-btn round shadow block bg-blue" bindtap="noticeHR" data-id="{{item.id}}"><text class="cuIcon-comment"></text>聊一聊</button>
+        </view>
+        <view class="flex-sub padding-sm margin-xs radius">
+          <button class="cu-btn round shadow block bg-blue" bindtap="goToDetail" data-name="{{item.fileInfo.fileOriginName}}" data-id="{{item.resumeFile}}"><text class="cuIcon-copy"></text>详情</button>
+        </view>
+      </view>
+    </view>
+  </view>
+
+</view>
