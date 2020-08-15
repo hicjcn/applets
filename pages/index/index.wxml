@@ -1,6 +1,3 @@
-<cu-custom bgColor="bg-gradual-blue">
-  <view slot="content">首页</view>
-</cu-custom>
 <!-- <view class="margin-xl padding-xl bg-white radius shadow shadow-lg">
   <view class="flex justify-center">
     <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" class='cu-btn round bg-green shadow'> 获取头像昵称 </button>
@@ -12,6 +9,37 @@
     </block>
   </view>
 </view> -->
+<view style="margin-bottom: 60px;">
+  <view style="position: fixed; top: 0px; width: 100%; z-index:999;">
+    <view class="cu-bar bg-white search">
+      <view class="search-form round">
+        <text class="cuIcon-search"></text>
+        <input type="text" placeholder="搜索" confirm-type="search" bindinput="searchIcon"></input>
+      </view>
+    </view>
+    <scroll-view scroll-x class="bg-white nav">
+      <view class="flex text-center">
+        <view class="cu-item flex-sub {{index==TabCur?'text-blue cur':''}}" wx:for="{{4}}" wx:key bindtap="tabSelect" data-id="{{index}}">
+          Tab{{index}}
+        </view>
+      </view>
+    </scroll-view>
+  </view>
 
+  <view style="margin-top: 100px;">
+    <CandidateList data="{{pageData}}"/>
+  </view>
+</view>
 
-<CandidateList data="{{pageData}}"/>
+<view class="box" style="position: fixed; bottom: 0px; width: 100%; z-index:999;">
+  <view class="cu-bar tabbar bg-white">
+    <view class="action">
+      <view class="cuIcon-home"></view>
+      <view class="text-green">主页</view>
+    </view>
+    <view class="action">
+      <view class="cuIcon-my"></view>
+      <view class="text-gray">我的</view>
+    </view>
+  </view>
+</view>

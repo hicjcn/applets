@@ -11,10 +11,8 @@ Page({
     pageData: [],
     hasUserInfo: false,
     requesting: false,
-    end: false,
-    topSize: 10,
-		bottomSize: 30,
-		page: 1,
+    page: 1,
+    TabCur: 0,
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
   onLoad: function () {
@@ -104,5 +102,11 @@ Page({
     })
     this.getPageData()
     wx.stopPullDownRefresh()
+  },
+
+  tabSelect(e) {
+    this.setData({
+      TabCur: e.currentTarget.dataset.id
+    })
   }
 })
