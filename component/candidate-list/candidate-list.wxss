@@ -1,0 +1,10 @@
+/* component/candidate-list.wxss */
+.border-blue {
+  border: 1px solid #4457ff
+}
+.color-gray {
+  background-color: #f7f5f7;
+}
+.b-shadow {
+  box-shadow: 2px 5px 10px 5px #e9e7e9;
+}

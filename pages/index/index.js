@@ -2,8 +2,6 @@
 //获取应用实例
 const app = getApp()
 var http = require('../../utils/request')
-const cachePath = wx.env.USER_DATA_PATH + '/cache/'
-let pageStart = 1;
 
 Page({
   data: {
@@ -16,7 +14,7 @@ Page({
     end: false,
     topSize: 10,
 		bottomSize: 30,
-		page: pageStart,
+		page: 1,
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
   onLoad: function () {
@@ -46,14 +44,13 @@ Page({
         }
       })
     }
+    this.getPageData()
   },
-  getPageData: function(pageNo = 1, callback) {
+  getPageData: function(pageNo = 1) {
     const that = this
     that.setData({
 			requesting: true
 		})
-
-		wx.showNavigationBarLoading()
 
     http.getRequest('/api/candidates', {
       pageNo: pageNo
@@ -61,7 +58,6 @@ Page({
       that.setData({
 				requesting: false
 			})
-			wx.hideNavigationBarLoading()
 
       if (res.success) {
         let pageData = that.data.pageData
@@ -91,7 +87,6 @@ Page({
       that.setData({
 				requesting: false
 			})
-			wx.hideNavigationBarLoading()
     })
   },
   getUserInfo: function(e) {
@@ -102,131 +97,12 @@ Page({
       hasUserInfo: true
     })
   },
-  noticeHR: function(e) {
-    const that = this
-    let id = e.currentTarget.dataset.id
-    http.getRequest('/api/chat', {
-      id: id
-    }, function(res) {
-      if (res.success) {
-        wx.showModal({
-          title: '成功',
-          content: '已通知HR沟通此候选人',
-          showCancel: false,
-          confirmText: '我知道了',
-          success (res) {
-            console.log('点击确认')
-          }
-        })
-      } else{
-        wx.showModal({
-          title: '提示',
-          content: res.message,
-          showCancel: false,
-          confirmText: '我知道了',
-          success (res) {
-            console.log('点击确认')
-          }
-        })
-      }
-    }, function(err) {
-      wx.showToast({
-        title: '获取数据失败',
-        icon: 'none',
-        duration: 2000
-      })
-    })
-  },
 
-  downloadFile: function (id, name) {
-    // 打开文件
-    wx.showLoading({
-      title: '加载中',
-    })
-    
-    wx.downloadFile({
-      filePath: cachePath + name,
-      url: http.host + '/sysFileInfo/download?id=' + id,
-      success: function (res) {
-        console.log(res)
-        var filePath = cachePath + name
-        wx.openDocument({
-          showMenu: true,
-          filePath: filePath,
-          success: function (res) {
-            console.log('打开文档成功')
-          },
-          fail: function (err) {
-            console.log(err)
-          }
-        })
-      },
-      complete: function (res) {
-        wx.hideLoading()
-      }
-    })    
-  },
-  goToDetail: function(e) {
-    const that = this
-    let id = e.currentTarget.dataset.id
-    let name = e.currentTarget.dataset.name
-
-    // 检查参数
-    if (!id || !name) {
-      wx.showToast({
-        title: '未获取到文件参数',
-        icon: 'none',
-        duration: 2000
-      })
-    }
-
-    // 检查文件夹
-    let fm = wx.getFileSystemManager()
-    try {
-      // 访问成功则存在
-      fm.accessSync(cachePath)
-    } catch (error) {
-      // 不存在则新建
-      fm.mkdirSync(cachePath, true)
-    }
-  
-    that.downloadFile(id, name)
-    // wx.navigateTo({
-    //   url: '../detail/detail?id=' + id,
-    // })
-  },
-
-  onRefresh:function(e){
-    var callback = e.detail;
+  onPullDownRefresh:function(){
     this.setData({
       pageData: []
     })
-    this.getPageData(1, callback)
-  },
-  onLoadMore: function (e) {
-    this.setData({
-			requesting: true
-		})
-
-		wx.showNavigationBarLoading()
-
-    setTimeout(() => {
-			this.setData({
-				requesting: false
-			})
-
-			wx.hideNavigationBarLoading()
-
-      this.setData({
-        page: currentPage + 1,
-        end: false
-      })
-
-		}, 1000);
-
-  },
-
-  onLoad: function () {
     this.getPageData()
+    wx.stopPullDownRefresh()
   }
 })
