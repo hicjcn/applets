@@ -42,26 +42,14 @@
     <view class="cu-list menu sm-border card-menu">
       <view class="cu-item arrow">
         <view class="content">
-          <text class="cuIcon-circlefill text-grey"></text>
-          <text class="text-grey">图标 + 标题</text>
+          <text class="cuIcon-communityfill text-green"></text>
+          <text class="text-grey">想聊的人</text>
         </view>
       </view>
       <view class="cu-item arrow">
         <view class="content">
-          <text class="cuIcon-circlefill text-grey"></text>
-          <text class="text-grey">图标 + 标题</text>
-        </view>
-      </view>
-      <view class="cu-item arrow">
-        <view class="content">
-          <text class="cuIcon-circlefill text-grey"></text>
-          <text class="text-grey">图标 + 标题</text>
-        </view>
-      </view>
-      <view class="cu-item arrow">
-        <view class="content">
-          <text class="cuIcon-circlefill text-grey"></text>
-          <text class="text-grey">图标 + 标题</text>
+          <text class="cuIcon-activityfill text-blue"></text>
+          <text class="text-grey">想看的方向</text>
         </view>
       </view>
     </view>
