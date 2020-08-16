@@ -63,7 +63,7 @@ Page({
 			})
 
       if (res.success) {
-        let pageData = that.data.pageData
+        let pageData = []
         pageData = pageData.concat(res.data)
         that.setData({
           pageData: pageData

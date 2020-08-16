@@ -74,6 +74,17 @@ function request(url, params, method, onSuccess, onFailed) {
  */
 function dealParams(params) {
   console.log("请求参数:", params)
+
+  // 遍历移除null参数
+  for (const key in params) {
+    if (params.hasOwnProperty(key)) {
+      const element = params[key];
+      if (element === null) {
+        delete params[key]
+      }
+    }
+  }
+
   return params;
 }
 
