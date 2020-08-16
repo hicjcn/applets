@@ -2,6 +2,7 @@
 //获取应用实例
 const app = getApp()
 var http = require('../../utils/request')
+const waitTime = 1000
 
 Page({
   data: {
@@ -16,6 +17,8 @@ Page({
     TabCur: null,
     searchWord: null,
     isMyTab: false,
+    countTime: waitTime,          //延迟搜索 时间
+    searchWaiting: false,  //是否等待搜索倒计时中
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
   onLoad: function () {
@@ -43,7 +46,6 @@ Page({
       })
     }
     this.getTabData()
-    this.getPageData()
   },
   getPageData: function(pageNo = 1) {
     const that = this
@@ -53,8 +55,8 @@ Page({
 
     http.getRequest('/api/candidates', {
       pageNo: pageNo,
-      tagCode: that.TabCur,
-      search: that.searchWord
+      tagCode: that.data.TabCur,
+      search: that.data.searchWord
     }, function(res) {
       that.setData({
 				requesting: false
@@ -164,6 +166,7 @@ Page({
           tabData: res.data,
           TabCur: res.data[0].code
         })
+        that.getPageData()
       } else{
         wx.showModal({
           title: '提示',
@@ -209,6 +212,54 @@ Page({
     })
     this.getPageData()
   },
+
+  search (e) {
+    this.setData({
+      countTime:waitTime,
+      searchWord: e.detail.value
+    })
+    //是否处于搜索倒计时中
+   if (!this.data.searchWaiting){
+    this.timer()
+   }
+  },
+
+  /**
+   *  延迟搜索  
+   */
+  timer: function () {
+   
+    var that=this;
+   
+    this.setData({
+      searchWaiting: true
+    })
+
+    let promise = new Promise((resolve, reject) => {
+      let setTimer = setInterval(
+        () => {
+          console.log('搜索倒计时: ' + that.data.countTime);
+          this.setData({
+            countTime: this.data.countTime - 500
+          })
+          if (this.data.countTime <= 0) {
+            console.log('开始搜索: ' + that.data.searchWord);
+
+            this.setData({
+              countTime: waitTime,
+              searchWaiting: false,
+            })
+            resolve(setTimer)
+          }
+        }
+        , 500)
+    })
+    promise.then((setTimer) => {
+      that.getPageData();//获取列表
+      clearInterval(setTimer)//清除计时器
+    })
+  },
+  
 
   toChatList(){
     wx.navigateTo({

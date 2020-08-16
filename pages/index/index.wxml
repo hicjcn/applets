@@ -3,7 +3,7 @@
     <view class="cu-bar bg-white search">
       <view class="search-form round">
         <text class="cuIcon-search"></text>
-        <input type="text" placeholder="搜索" confirm-type="search" bindinput="searchIcon"></input>
+        <input type="text" placeholder="搜索" confirm-type="search" bindinput="search"></input>
       </view>
     </view>
     <scroll-view scroll-x class="bg-white nav">
