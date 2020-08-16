@@ -7,6 +7,7 @@ var header = {
   'content-type': 'application/json',
   'os': 'android',
   'version': '1.0.0',
+  'token': wx.getStorageSync("token"),
   'device_token': 'ebc9f523e570ef14',
 }
 

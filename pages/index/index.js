@@ -9,10 +9,12 @@ Page({
     CustomBar: app.globalData.CustomBar,
     userInfo: {},
     pageData: [],
+    tabData: [],
     hasUserInfo: false,
     requesting: false,
     page: 1,
-    TabCur: 0,
+    TabCur: null,
+    searchWord: null,
     isMyTab: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
@@ -40,6 +42,7 @@ Page({
         }
       })
     }
+    this.getTabData()
     this.getPageData()
   },
   getPageData: function(pageNo = 1) {
@@ -49,7 +52,9 @@ Page({
 		})
 
     http.getRequest('/api/candidates', {
-      pageNo: pageNo
+      pageNo: pageNo,
+      tagCode: that.TabCur,
+      search: that.searchWord
     }, function(res) {
       that.setData({
 				requesting: false
@@ -58,7 +63,6 @@ Page({
       if (res.success) {
         let pageData = that.data.pageData
         pageData = pageData.concat(res.data)
-        console.log(pageData)
         that.setData({
           pageData: pageData
         })
@@ -98,7 +102,6 @@ Page({
     // 尝试登陆
     this.login()
   },
-  
 
   login: function() {
     wx.login({
@@ -110,10 +113,10 @@ Page({
             code: res.code,
             userInfo: app.globalData.userInfo
           }, function(res) {
-            // TODO 成功登录 保存token
-            if (res.success) {
-
-
+            // 成功登录 保存token
+            if (res.success && res.data) {
+              app.globalData.token = res.data
+              wx.setStorageSync('token', res.data)
             } else{
               wx.showModal({
                 title: '提示',
@@ -150,6 +153,36 @@ Page({
     })
   },
 
+  
+  getTabData () {
+    const that = this
+    //发起网络请求
+    http.getRequest('/api/tags', {}, function(res) {
+      //  Tab数据
+      if (res.success && res.data && res.data.length > 0) {
+        that.setData({
+          tabData: res.data,
+          TabCur: res.data[0].code
+        })
+      } else{
+        wx.showModal({
+          title: '提示',
+          content: res.message,
+          showCancel: false,
+          confirmText: '我知道了'
+        })
+      }
+    }, function (res) {
+      // 登录失败提示
+      wx.showModal({
+        title: '提示',
+        content: '获取标签分类失败',
+        showCancel: false,
+        confirmText: '我知道了'
+      })
+    })
+  },
+
   onPullDownRefresh:function(){
     this.setData({
       pageData: []
@@ -174,6 +207,7 @@ Page({
     this.setData({
       TabCur: e.currentTarget.dataset.id
     })
+    this.getPageData()
   },
 
   toChatList(){
