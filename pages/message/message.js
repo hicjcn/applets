@@ -27,8 +27,8 @@ Page({
 
   submit: function(e) {
     //发起网络请求
-    http.postRequest('/api/login', {
-      message: this.message
+    http.getRequest('/api/message', {
+      message: this.data.message
     }, function(res) {
       //  成功
       if (res.success) {
