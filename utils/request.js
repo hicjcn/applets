@@ -4,7 +4,7 @@ const host = 'https://test.1xhitech.com/api'
  * 请求头 'Authorization': "Bearer " + wx.getStorageSync("token"),
  */
 var header = {
-  'content-type': 'application/x-www-form-urlencoded',
+  'content-type': 'application/json',
   'os': 'android',
   'version': '1.0.0',
   'device_token': 'ebc9f523e570ef14',

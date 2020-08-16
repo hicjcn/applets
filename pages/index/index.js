@@ -17,29 +17,26 @@ Page({
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
   onLoad: function () {
+    const that = this
     if (app.globalData.userInfo) {
-      this.setData({
+      that.setData({
         userInfo: app.globalData.userInfo,
         hasUserInfo: true
       })
-    } else if (this.data.canIUse){
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-      }
+      // 尝试登陆
+      that.login()
     } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
+      // 查看是否授权
+      wx.getSetting({
+        success (res){
+          if (res.authSetting['scope.userInfo']) {
+            // 已经授权，可以直接调用 getUserInfo 获取头像昵称
+            wx.getUserInfo({
+              success: function(res) {
+                that.getUserInfo(res)
+              }
+            })
+          }
         }
       })
     }
@@ -70,10 +67,7 @@ Page({
           title: '提示',
           content: res.message,
           showCancel: false,
-          confirmText: '我知道了',
-          success (res) {
-            console.log('点击确认')
-          }
+          confirmText: '我知道了'
         })
       }
     }, function(err) {
@@ -90,10 +84,69 @@ Page({
   },
   getUserInfo: function(e) {
     console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
+    let detail = e.detail || e
+    if (detail.errMsg !== 'getUserInfo:ok') {
+      return
+    }
+    // 保存用户信息
+    app.globalData.userInfo = detail.userInfo
     this.setData({
-      userInfo: e.detail.userInfo,
+      userInfo: detail.userInfo,
       hasUserInfo: true
+    })
+
+    // 尝试登陆
+    this.login()
+  },
+  
+
+  login: function() {
+    wx.login({
+      success: (res) => {
+        console.log('微信登陆Res', res)
+        if (res.code) {
+          //发起网络请求
+          http.postRequest('/api/login', {
+            code: res.code,
+            userInfo: app.globalData.userInfo
+          }, function(res) {
+            // TODO 成功登录 保存token
+            if (res.success) {
+
+
+            } else{
+              wx.showModal({
+                title: '提示',
+                content: res.message,
+                showCancel: false,
+                confirmText: '我知道了'
+              })
+            }
+          }, function (res) {
+            // 登录失败提示
+            wx.showModal({
+              title: '提示',
+              content: '用户账户登录失败',
+              showCancel: false,
+              confirmText: '我知道了'
+            })
+          })
+        } else {
+          wx.showToast({
+            title: '获取微信登陆Code失败',
+            icon: 'none',
+            duration: 2000
+          })
+        }
+      },
+      fail: (res) => {
+        console.log(res)
+        wx.showToast({
+          title: '微信登陆失败，请重新进入小程序重试',
+          icon: 'none',
+          duration: 2000
+        })
+      }
     })
   },
 
