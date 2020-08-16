@@ -176,4 +176,16 @@ Page({
     })
   },
 
+  toChatList(){
+    wx.navigateTo({
+      url: '/pages/chat-list/chat-list'
+    })
+  },
+
+  toMessage(){
+    wx.navigateTo({
+      url: '/pages/message/message'
+    })
+  }
+
 })

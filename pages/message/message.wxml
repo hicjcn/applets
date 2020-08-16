@@ -1,0 +1,12 @@
+<!--pages/message/message.wxml-->
+<view class="cu-bar bg-white solid-bottom  margin-top">
+  <view class="action">
+    <text class="cuIcon-titles text-orange"></text> 想看的方向
+  </view>
+</view>
+<view class="padding">
+  <view class="cu-form-group margin-top">
+    <textarea maxlength="-1" bindinput="textareaAInput" placeholder="请输入想看的方向" style="height: 300px"></textarea>
+  </view>
+  <button class="cu-btn block bg-blue lg margin-top" disabled="{{!canSubmit}}" bindtap="submit">提交</button>
+</view>

@@ -40,13 +40,13 @@
     <view class="cu-item shadow">
 
     <view class="cu-list menu sm-border card-menu">
-      <view class="cu-item arrow">
+      <view class="cu-item arrow" bindtap="toChatList">
         <view class="content">
           <text class="cuIcon-communityfill text-green"></text>
           <text class="text-grey">想聊的人</text>
         </view>
       </view>
-      <view class="cu-item arrow">
+      <view class="cu-item arrow" bindtap="toMessage">
         <view class="content">
           <text class="cuIcon-activityfill text-blue"></text>
           <text class="text-grey">想看的方向</text>
