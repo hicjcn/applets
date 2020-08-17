@@ -45,7 +45,6 @@ Page({
         }
       })
     }
-    this.getTabData()
   },
   getPageData: function(pageNo = 1) {
     const that = this
@@ -120,6 +119,7 @@ Page({
   },
 
   login: function() {
+    const that = this
     wx.login({
       success: (res) => {
         console.log('微信登陆Res', res)
@@ -133,6 +133,7 @@ Page({
             if (res.success && res.data) {
               app.globalData.token = res.data
               wx.setStorageSync('token', res.data)
+              that.getTabData()
             } else{
               wx.showModal({
                 title: '提示',

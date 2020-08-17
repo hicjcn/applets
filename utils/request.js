@@ -3,7 +3,7 @@ const host = 'https://test.1xhitech.com/api'
 /**
  * 请求头 'Authorization': "Bearer " + wx.getStorageSync("token"),
  */
-var header = {
+var headerInit = {
   'content-type': 'application/json',
   'os': 'android',
   'version': '1.0.0',
@@ -42,6 +42,8 @@ function request(url, params, method, onSuccess, onFailed, auth = true) {
   wx.showLoading({
     title: "正在加载中...",
   })
+
+  let header = JSON.parse(JSON.stringify(headerInit))
 
   let token = wx.getStorageSync("token")
   if (auth && token) {
