@@ -69,12 +69,26 @@ Page({
           pageData: pageData
         })
       } else{
-        wx.showModal({
-          title: '提示',
-          content: res.message,
-          showCancel: false,
-          confirmText: '我知道了'
-        })
+        if (res.code === 1011009) {
+          wx.showModal({
+            title: '提示',
+            content: '请先登录后查看数据',
+            showCancel: false,
+            confirmText: '我知道了',
+            success: () => {
+              // 转跳到我的界面
+              that.toMy()
+            }
+          })
+
+        } else {
+          wx.showModal({
+            title: '提示',
+            content: res.message,
+            showCancel: false,
+            confirmText: '我知道了'
+          })
+        }
       }
     }, function(err) {
       wx.showToast({
@@ -135,7 +149,7 @@ Page({
               showCancel: false,
               confirmText: '我知道了'
             })
-          })
+          }, false)
         } else {
           wx.showToast({
             title: '获取微信登陆Code失败',
@@ -183,7 +197,7 @@ Page({
         showCancel: false,
         confirmText: '我知道了'
       })
-    })
+    }, false)
   },
 
   onPullDownRefresh:function(){

@@ -7,25 +7,24 @@ var header = {
   'content-type': 'application/json',
   'os': 'android',
   'version': '1.0.0',
-  'token': wx.getStorageSync("token"),
   'device_token': 'ebc9f523e570ef14',
 }
 
 /**
  * 供外部post请求调用  
  */
-function post(url, params, onSuccess, onFailed) {
+function post(url, params, onSuccess, onFailed, auth = true) {
   console.log("请求方式：", "POST")
-  request(url, params, "POST", onSuccess, onFailed);
+  request(url, params, "POST", onSuccess, onFailed, auth);
 
 }
 
 /**
  * 供外部get请求调用
  */
-function get(url, params, onSuccess, onFailed) {
+function get(url, params, onSuccess, onFailed, auth = true) {
   console.log("请求方式：", "GET")
-  request(url, params, "GET", onSuccess, onFailed);
+  request(url, params, "GET", onSuccess, onFailed, auth);
 }
 
 /**
@@ -35,13 +34,20 @@ function get(url, params, onSuccess, onFailed) {
  * @method 请求方式：GET/POST
  * @onSuccess 成功回调
  * @onFailed  失败回调
+ * @auth  是否带上token
  */
 
-function request(url, params, method, onSuccess, onFailed) {
+function request(url, params, method, onSuccess, onFailed, auth = true) {
   console.log('请求url：' + url);
   wx.showLoading({
     title: "正在加载中...",
   })
+
+  let token = wx.getStorageSync("token")
+  if (auth && token) {
+    header.Authorization = "Bearer " + token
+  }
+
   console.log("请求头：", header)
   wx.request({
     url: host + url,
