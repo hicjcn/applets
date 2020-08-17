@@ -79,15 +79,23 @@ Page({
               that.toMy()
             }
           })
-
-        } else {
+          return
+        }
+        if (res.code === 1011008) {
           wx.showModal({
             title: '提示',
-            content: res.message,
+            content: '登录身份已过期，请重新进入小程序刷新',
             showCancel: false,
             confirmText: '我知道了'
           })
+          return
         }
+        wx.showModal({
+          title: '提示',
+          content: res.message,
+          showCancel: false,
+          confirmText: '我知道了'
+        })
       }
     }, function(err) {
       wx.showToast({
