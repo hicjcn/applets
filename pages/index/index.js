@@ -10,11 +10,11 @@ Page({
     CustomBar: app.globalData.CustomBar,
     userInfo: {},
     pageData: [],
-    tabData: [],
+    tabData: [{value: "算法", code: "sf"}, {value: "数据", code: "sj"}, {value: "工程", code: "gc"}],
     hasUserInfo: false,
     requesting: false,
     page: 1,
-    TabCur: null,
+    TabCur: 'sf',
     searchWord: null,
     isMyTab: false,
     countTime: waitTime,          //延迟搜索 时间
