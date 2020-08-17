@@ -45,6 +45,7 @@ Page({
         }
       })
     }
+    this.getTabData()
   },
   getPageData: function(pageNo = 1) {
     const that = this
@@ -141,7 +142,7 @@ Page({
             if (res.success && res.data) {
               app.globalData.token = res.data
               wx.setStorageSync('token', res.data)
-              that.getTabData()
+              that.getPageData()
             } else{
               wx.showModal({
                 title: '提示',
@@ -189,7 +190,6 @@ Page({
           tabData: res.data,
           TabCur: res.data[0].code
         })
-        that.getPageData()
       } else{
         wx.showModal({
           title: '提示',
