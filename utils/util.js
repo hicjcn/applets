@@ -15,7 +15,6 @@ const formatNumber = n => {
 }
 
 function commentTimeHandle(dateStr) {
-  console.log('转换日期:', dateStr)
   dateStr = new Date(dateStr.replace(/-/g, '/')).getTime()
   // dateStr = 2018-09-06 18:47:00" 测试时间
   var publishTime = dateStr / 1000,  //获取dataStr的秒数  打印结果--1536230820000

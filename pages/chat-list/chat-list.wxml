@@ -10,7 +10,7 @@
         <view class="cu-tag badge">99+</view>
       </view> -->
       <view class="content" style="left: 50rpx; width: calc(100% - 120rpx - 20rpx);">
-        <view class="text-grey">
+        <view class="text-black">
           <text class="text-cut">{{item.candidate.name}}</text>
           <view class="cu-tag round bg-blue sm">{{item.candidate.position}}</view>
         </view>
