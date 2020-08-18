@@ -1,5 +1,6 @@
 // pages/chat-list/chat-list.js
 var http = require('../../utils/request')
+const cachePath = wx.env.USER_DATA_PATH + '/cache/'
 import { timeHandle } from '../../utils/util'
 
 Page({
@@ -65,5 +66,65 @@ Page({
         duration: 2000
       })
     })
+  },
+
+  downloadFile: function (id, name) {
+    // 打开文件
+    wx.showLoading({
+      title: '加载中',
+    })
+
+    wx.downloadFile({
+      filePath: cachePath + name,
+      url: http.host + '/sysFileInfo/download?id=' + id,
+      success: function (res) {
+        console.log(res)
+        var filePath = cachePath + name
+        wx.openDocument({
+          showMenu: true,
+          filePath: filePath,
+          success: function (res) {
+            console.log('打开文档成功')
+          },
+          fail: function (err) {
+            console.log(err)
+          }
+        })
+      },
+      complete: function (res) {
+        wx.hideLoading()
+      }
+    })    
+  },
+  goToDetail: function(e) {
+    const that = this
+    let id = e.currentTarget.dataset.id
+    let name = e.currentTarget.dataset.name
+
+    // 检查参数
+    if (!id || !name) {
+      wx.showToast({
+        title: '未获取到文件参数',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
+
+    // 检查文件夹
+    let fm = wx.getFileSystemManager()
+    try {
+      // 访问成功则存在
+      fm.accessSync(cachePath)
+    } catch (error) {
+      // 不存在则新建
+      fm.mkdirSync(cachePath, true)
+    }
+  
+    that.downloadFile(id, name)
+    // wx.navigateTo({
+    //   url: '../detail/detail?id=' + id,
+    // })
   }
+
 })

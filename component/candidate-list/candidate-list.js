@@ -108,6 +108,7 @@ Component({
           icon: 'none',
           duration: 2000
         })
+        return
       }
   
       // 检查文件夹

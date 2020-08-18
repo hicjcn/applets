@@ -12,14 +12,15 @@
       <view class="content" style="left: 50rpx; width: calc(100% - 120rpx - 20rpx);">
         <view class="text-black">
           <text class="text-cut">{{item.candidate.name}}</text>
-          <view class="cu-tag round bg-blue sm">{{item.candidate.position}}</view>
+          <view class="cu-tag round bg-blue light sm">{{item.candidate.position}}</view>
         </view>
         <view class="text-gray text-sm flex">
           <text class="text-cut">{{item.candidate.direction}} {{item.candidate.education}}</text>
         </view>
       </view>
-      <view class="action">
-        <view class="text-grey text-xs">{{item.time}}</view>
+      <view class="action" style="width: 150rpx;">
+        <view class="text-grey text-xs" style="margin-bottom: 10rpx;">{{item.time}}</view>
+        <button class="cu-btn bg-blue sm" bindtap="goToDetail" data-name="{{item.candidate.fileInfo.fileOriginName}}" data-id="{{item.candidate.resumeFile}}">详情</button>
         <!-- <view class="cuIcon-notice_forbid_fill text-gray"></view> -->
       </view>
     </view>
