@@ -1,2 +1,26 @@
 <!--pages/chat-list/chat-list.wxml-->
-<text>pages/chat-list/chat-list.wxml</text>
+  <view class="cu-bar bg-white solid-bottom margin-top">
+    <view class="action">
+      <text class="cuIcon-title text-orange "></text> 聊一聊记录
+    </view>
+  </view>
+  <view class="cu-list menu-avatar">
+    <view class="cu-item" wx:key="index" wx:for="{{pageData}}">
+      <!-- <view class="cu-avatar round lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/img/champion/Taric.png);">
+        <view class="cu-tag badge">99+</view>
+      </view> -->
+      <view class="content" style="left: 50rpx; width: calc(100% - 120rpx - 20rpx);">
+        <view class="text-grey">
+          <text class="text-cut">{{item.candidate.name}}</text>
+          <view class="cu-tag round bg-blue sm">{{item.candidate.position}}</view>
+        </view>
+        <view class="text-gray text-sm flex">
+          <text class="text-cut">{{item.candidate.direction}} {{item.candidate.education}}</text>
+        </view>
+      </view>
+      <view class="action">
+        <view class="text-grey text-xs">{{item.time}}</view>
+        <!-- <view class="cuIcon-notice_forbid_fill text-gray"></view> -->
+      </view>
+    </view>
+  </view>

@@ -1,1 +1,5 @@
 /* pages/chat-list/chat-list.wxss */
+
+.to-left{
+  left: 50rpx;
+}
