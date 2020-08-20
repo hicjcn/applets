@@ -69,7 +69,7 @@ Page({
         pageData = pageData.concat(res.data)
         that.setData({
           pageData: pageData,
-          aheight: 407 * pageData.length
+          aheight: 420 * pageData.length
         })
       } else{
         if (res.code === 1011009) {
