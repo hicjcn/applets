@@ -16,7 +16,13 @@
   </view>
 
   <view style="margin-top: 100px;">
-    <CandidateList data="{{pageData}}"/>
+    <swiper style="height: {{aheight}}px" current="{{TabCurIndex}}" duration="300" bindchange="swiperTabView">  
+      <view wx:for="{{tabData}}" wx:key="{item.code}}">
+        <swiper-item item-id="{{item.code}}">
+          <CandidateList data="{{pageData}}"/>
+        </swiper-item>
+      </view>      
+    </swiper>
   </view>
 </view>
 

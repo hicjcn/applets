@@ -15,6 +15,8 @@ Page({
     requesting: false,
     page: 1,
     TabCur: 'sf',
+    TabCurIndex: 0,
+    aheight: 100,
     searchWord: null,
     isMyTab: false,
     countTime: waitTime,          //延迟搜索 时间
@@ -66,7 +68,8 @@ Page({
         let pageData = []
         pageData = pageData.concat(res.data)
         that.setData({
-          pageData: pageData
+          pageData: pageData,
+          aheight: 407 * pageData.length
         })
       } else{
         if (res.code === 1011009) {
@@ -230,8 +233,17 @@ Page({
   },
 
   tabSelect(e) {
+    let code = e.currentTarget.dataset.id
+    let index = 0
+    for (; index < this.data.tabData.length; index++) {
+      const element = this.data.tabData[index];
+      if (element.code === code) {
+        break
+      }
+    }
     this.setData({
-      TabCur: e.currentTarget.dataset.id
+      TabCur: code,
+      TabCurIndex: index
     })
     this.getPageData()
   },
@@ -294,6 +306,12 @@ Page({
     wx.navigateTo({
       url: '/pages/message/message'
     })
-  }
+  },
 
+  swiperTabView (e) {
+    this.setData({
+      TabCur: this.data.tabData[e.detail.current].code
+    })
+    this.getPageData()
+  }
 })
