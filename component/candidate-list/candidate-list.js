@@ -96,6 +96,7 @@ Component({
         }
       })    
     },
+
     goToDetail: function(e) {
       const that = this
       let id = e.currentTarget.dataset.id
