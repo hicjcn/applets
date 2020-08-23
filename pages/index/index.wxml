@@ -19,7 +19,9 @@
     <swiper style="height: {{aheight}}px" current="{{TabCurIndex}}" duration="300" bindchange="swiperTabView">  
       <view wx:for="{{tabData}}" wx:key="{item.code}}">
         <swiper-item item-id="{{item.code}}">
-          <CandidateList data="{{pageData}}"/>
+          <scroll-view scroll-y style="height: {{aheight}}px">
+            <CandidateList data="{{pageData[item.code]}}"/>
+          </scroll-view>
         </swiper-item>
       </view>      
     </swiper>

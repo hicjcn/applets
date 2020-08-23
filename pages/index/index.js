@@ -16,7 +16,7 @@ Page({
     page: 1,
     TabCur: 'sf',
     TabCurIndex: 0,
-    aheight: 100,
+    aheight: 700,
     searchWord: null,
     isMyTab: false,
     countTime: waitTime,          //延迟搜索 时间
@@ -49,6 +49,20 @@ Page({
     }
     this.getTabData()
   },
+
+  onReady() {
+    this.computeScrollViewHeight()
+  },
+
+  //计算 scroll-view 的高度
+  computeScrollViewHeight() {
+    let that = this
+    let screenHeight = wx.getSystemInfoSync().windowHeight
+    that.setData({
+      aheight: screenHeight - 155
+    })
+  },
+  
   getPageData: function(pageNo = 1) {
     const that = this
     that.setData({
@@ -65,11 +79,8 @@ Page({
 			})
 
       if (res.success) {
-        let pageData = []
-        pageData = pageData.concat(res.data)
         that.setData({
-          pageData: pageData,
-          aheight: 420 * pageData.length
+          pageData: res.data
         })
       } else{
         if (res.code === 1011009) {
@@ -245,7 +256,6 @@ Page({
       TabCur: code,
       TabCurIndex: index
     })
-    this.getPageData()
   },
 
   search (e) {
@@ -312,6 +322,5 @@ Page({
     this.setData({
       TabCur: this.data.tabData[e.detail.current].code
     })
-    this.getPageData()
   }
 })
