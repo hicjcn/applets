@@ -62,7 +62,7 @@ Page({
       aheight: screenHeight - 155
     })
   },
-  
+
   getPageData: function(pageNo = 1) {
     const that = this
     that.setData({
@@ -237,10 +237,23 @@ Page({
     })
   },
 
-  toHome(){
+  toHome(e){
+    const that = this
+    let diffTouch = this.touchEndTime - this.touchStartTime;
+    let curTime = e.timeStamp;
+    let lastTime = this.lastTapDiffTime;
+    this.lastTapDiffTime = curTime;
+    
     this.setData({
       isMyTab: false
     })
+
+    //两次点击间隔小于300ms, 认为是双击
+    let diff = curTime - lastTime;
+    if (diff < 300) {
+      console.log("双击刷新")
+      wx.startPullDownRefresh()
+    }
   },
 
   tabSelect(e) {
