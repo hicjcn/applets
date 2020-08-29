@@ -71,7 +71,6 @@ Page({
 
     http.getRequest('/api/candidates', {
       pageNo: pageNo,
-      tagCode: that.data.TabCur,
       search: that.data.searchWord
     }, function(res) {
       that.setData({
