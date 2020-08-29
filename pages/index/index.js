@@ -25,27 +25,32 @@ Page({
   },
   onLoad: function () {
     const that = this
-    if (app.globalData.userInfo) {
-      that.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-      // 尝试登陆
-      that.login()
-    } else {
-      // 查看是否授权
-      wx.getSetting({
-        success (res){
-          if (res.authSetting['scope.userInfo']) {
-            // 已经授权，可以直接调用 getUserInfo 获取头像昵称
-            wx.getUserInfo({
-              success: function(res) {
-                that.getUserInfo(res)
-              }
-            })
+
+    // 如果是不登陆状态
+    let login = wx.getStorageSync('login')
+    if (login) {
+      if (app.globalData.userInfo) {
+        that.setData({
+          userInfo: app.globalData.userInfo,
+          hasUserInfo: true
+        })
+        // 尝试登陆
+        that.login()
+      } else {
+        // 查看是否授权
+        wx.getSetting({
+          success (res){
+            if (res.authSetting['scope.userInfo']) {
+              // 已经授权，可以直接调用 getUserInfo 获取头像昵称
+              wx.getUserInfo({
+                success: function(res) {
+                  that.getUserInfo(res)
+                }
+              })
+            }
           }
-        }
-      })
+        })
+      }
     }
     this.getTabData()
   },
@@ -142,6 +147,7 @@ Page({
 
   login: function() {
     const that = this
+    wx.setStorageSync('login', true)
     wx.login({
       success: (res) => {
         console.log('微信登陆Res', res)
@@ -192,6 +198,24 @@ Page({
     })
   },
 
+  logout () {
+    const that = this
+    wx.showModal({
+      title: '确认',
+      content: '是否确认退出？',
+      success (res) {
+        if (res.confirm) {
+          wx.setStorageSync('login', false)
+          wx.removeStorageSync('token')
+          that.setData({
+            hasUserInfo: false,
+            userInfo: {},
+            pageData: []
+          })
+        }
+      }
+    })
+  },
   
   getTabData () {
     const that = this
