@@ -190,7 +190,7 @@ Page({
       fail: (res) => {
         console.log(res)
         wx.showToast({
-          title: '微信登陆失败，请重新进入小程序重试',
+          title: '微信登陆失败，请重新尝试登陆',
           icon: 'none',
           duration: 2000
         })
