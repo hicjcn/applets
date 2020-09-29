@@ -51,6 +51,17 @@ Page({
           }
         })
       }
+    } else {
+      wx.showModal({
+        title: '登录提醒',
+        content: '请您先登录后查看数据',
+        showCancel: false,
+        confirmText: '我知道了',
+        success: () => {
+          // 转跳到我的界面
+          that.toMy()
+        }
+      })
     }
     this.getTabData()
   },
@@ -103,7 +114,7 @@ Page({
         if (res.code === 1011008) {
           wx.showModal({
             title: '提示',
-            content: '登录身份已过期，请重新进入小程序刷新',
+            content: '登录身份已过期，请重新登录',
             showCancel: false,
             confirmText: '我知道了'
           })
