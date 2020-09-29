@@ -1,5 +1,5 @@
 <!--component/candidate-list.wxml-->
-<view class="cu-card case" wx:key="index" wx:for="{{data}}">
+<view class="cu-card case" wx:key="index" wx:for="{{data}}" bindtap="goToDetail" data-name="{{item.fileInfo.fileOriginName}}" data-id="{{item.resumeFile}}">
   <view class="cu-item shadow b-shadow">
     <view class="image">
       <!-- <image src="https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg" mode="widthFix"></image> -->
