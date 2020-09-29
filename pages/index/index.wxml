@@ -1,7 +1,7 @@
 <view style="margin-bottom: 60px;" hidden="{{isMyTab}}">
   <view style="position: fixed; top: 0px; width: 100%; z-index:999;">
     <view class="cu-bar bg-white search">
-      <view class="search-form round">
+      <view class="search-form round" style="line-height: 80rpx; height: 80rpx; font-size: 34rpx;">
         <text class="cuIcon-search"></text>
         <input type="text" placeholder="搜索" confirm-type="search" bindinput="search"></input>
       </view>
