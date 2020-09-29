@@ -49,7 +49,7 @@
     <view class="cu-list menu-avatar color-gray">
       <view class="flex">
         <view class="flex-sub padding-sm margin-xs radius">
-          <button class="cu-btn round shadow block bg-blue" bindtap="noticeHR" data-id="{{item.id}}"><text class="cuIcon-comment"></text>聊一聊</button>
+          <button class="cu-btn round shadow block bg-blue" bindtap="noticeHR" data-id="{{item.id}}"><text class="cuIcon-comment"></text>安排沟通</button>
         </view>
         <view class="flex-sub padding-sm margin-xs radius">
           <button class="cu-btn round shadow block bg-blue" bindtap="goToDetail" data-name="{{item.fileInfo.fileOriginName}}" data-id="{{item.resumeFile}}"><text class="cuIcon-copy"></text>详情</button>
