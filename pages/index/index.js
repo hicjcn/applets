@@ -23,6 +23,19 @@ Page({
     searchWaiting: false,  //是否等待搜索倒计时中
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
+
+  onShareAppMessage: function (res) {
+    if (res.from === 'button') {
+      // 来自页面内转发按钮
+      console.log(res.target)
+    }
+    return {
+      title: '鹅选',
+      imageUrl: 'https://www.lpc-zhaopin.com/sharing.png',
+      path: '/pages/index/index'
+    }
+  },
+
   onLoad: function () {
     const that = this
 
