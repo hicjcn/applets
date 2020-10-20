@@ -30,7 +30,7 @@ Page({
       console.log(res.target)
     }
     return {
-      title: '鹅选',
+      title: '鹅选-猎聘中心高端人才推荐',
       imageUrl: 'https://www.lpc-zhaopin.com/sharing.png',
       path: '/pages/index/index'
     }
