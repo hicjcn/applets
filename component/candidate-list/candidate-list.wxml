@@ -20,7 +20,13 @@
               <view class="cu-item">
                 <view class="content">
                   <text class="cuIcon-people text-grey"></text>
-                  <text class="text-grey">职位：{{item.position}}</text>
+                  <text class="text-grey">当前职位：{{item.position}}</text>
+                </view>
+              </view>
+              <view class="cu-item">
+                <view class="content">
+                  <text class="cuIcon-explore text-grey"></text>
+                  <text class="text-grey">对标职位：{{item.benchmarkingPosition}}</text>
                 </view>
               </view>
               <view class="cu-item">
