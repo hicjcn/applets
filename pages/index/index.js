@@ -24,11 +24,7 @@ Page({
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
 
-  onShareAppMessage: function (res) {
-    if (res.from === 'button') {
-      // 来自页面内转发按钮
-      console.log(res.target)
-    }
+  onShareAppMessage: function () {
     return {
       title: '鹅选-猎聘中心高端人才推荐',
       imageUrl: 'https://www.lpc-zhaopin.com/sharing.png',
