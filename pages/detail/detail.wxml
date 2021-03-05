@@ -1,0 +1,63 @@
+<!--pages/detail.wxml-->
+<!-- <view class="cu-bar bg-white solid-bottom margin-top">
+    <view class="action">
+      <text class="cuIcon-title text-blue "></text> 候选人-{{data.name}}
+    </view>
+</view> -->
+<view class="cu-bar bg-white margin-top">
+  <view class="action sub-title">
+    <text class="text-xl text-bold text-green">{{data.name}}</text>
+    <text class="bg-green" style="width:4rem"></text>
+    <!-- last-child选择器-->
+  </view>
+</view>
+<view>
+  <view class="cu-list menu">
+    <view class="cu-item">
+      <view class="content">
+        <text class="cuIcon-home text-grey"></text>
+        <text class="text-grey">公司：{{data.company}}</text>
+      </view>
+    </view>
+    <view class="cu-item">
+      <view class="content">
+        <text class="cuIcon-people text-grey"></text>
+        <text class="text-grey">当前职位：{{data.position}}</text>
+      </view>
+    </view>
+    <view class="cu-item">
+      <view class="content">
+        <text class="cuIcon-explore text-grey"></text>
+        <text class="text-grey">对标职位：{{data.benchmarkingPosition}}</text>
+      </view>
+    </view>
+    <view class="cu-item">
+      <view class="content">
+        <text class="cuIcon-activity text-grey"></text>
+        <text class="text-grey">方向：{{data.direction}}</text>
+      </view>
+    </view>
+    <view class="cu-item">
+      <view class="content">
+        <text class="cuIcon-medal text-grey"></text>
+        <text class="text-grey">教育：{{data.education}}</text>
+      </view>
+    </view>
+    <view class="cu-item">
+      <view class="content">
+        <text class="cuIcon-creative text-grey"></text>
+        <text class="text-grey">状态：{{data.status}}</text>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="cu-list menu-avatar color-gray">
+  <view class="flex">
+    <view class="flex-sub padding-sm margin-xs radius">
+      <button class="cu-btn round shadow block bg-blue" bindtap="noticeHR" data-id="{{data.id}}"><text class="cuIcon-comment"></text>安排沟通</button>
+    </view>
+    <view class="flex-sub padding-sm margin-xs radius">
+      <button class="cu-btn round shadow block bg-blue" bindtap="goToDetail" data-name="{{data.fileInfo.fileOriginName}}" data-id="{{data.resumeFile}}"><text class="cuIcon-copy"></text>简历详情</button>
+    </view>
+  </view>
+</view>

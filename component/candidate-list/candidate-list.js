@@ -123,9 +123,24 @@ Component({
       }
     
       that.downloadFile(id, name)
-      // wx.navigateTo({
-      //   url: '../detail/detail?id=' + id,
-      // })
+    },
+
+    goToDetailPage: function(e) {
+      let id = e.currentTarget.dataset.id
+
+      // 检查参数
+      if (!id) {
+        wx.showToast({
+          title: '未获取到候选人编号',
+          icon: 'none',
+          duration: 2000
+        })
+        return
+      }
+      
+      wx.navigateTo({
+        url: '/pages/detail/detail?id=' + id,
+      })
     }
   }
 })
