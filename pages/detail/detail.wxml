@@ -61,3 +61,4 @@
     </view>
   </view>
 </view>
+<painter palette="{{imgDraw}}" bind:imgOK="onImgOK" bind:imgErr="onImgErr"/>

@@ -10,6 +10,8 @@ Page({
    */
   data: {
     id: null,
+    imgDraw: {}, //绘制图片的大对象
+    sharePath: '', //生成的分享图
     data: {}
   },
 
@@ -37,7 +39,7 @@ Page({
   onShareAppMessage: function () {
     return {
       title: '鹅选-猎聘中心高端人才推荐',
-      imageUrl: 'https://www.lpc-zhaopin.com/sharing.png',
+      imageUrl: this.data.sharePath || 'https://www.lpc-zhaopin.com/sharing.png',
       path: '/pages/detail/detail?id=' + this.id
     }
   },
@@ -52,6 +54,8 @@ Page({
         that.setData({
           data: res.data
         })
+        // 生成分享缩略图
+        that.drawPic()
       } else{
         if (res.code === 1011009) {
           wx.showModal({
@@ -178,5 +182,106 @@ Page({
     }
   
     that.downloadFile(id, name)
+  },
+
+  drawPic() {
+    const that = this
+    if (this.data.sharePath) { //如果已经绘制过了本地保存有图片不需要重新绘制
+      return
+    }
+    wx.showLoading({
+      title: '生成中'
+    })
+    this.setData({
+      imgDraw: {
+        width: '800rpx',
+        height: '600rpx',
+        views: [
+          {
+            type: 'image',
+            url: 'https://www.lpc-zhaopin.com/sharing.png',
+            css: {
+              top: '0rpx',
+              left: '0rpx',
+              right: '0rpx',
+              width: '800rpx',
+              height: '240rpx',
+              borderRadius: '16rpx'
+            },
+          },
+          {
+            type: 'image',
+            url: wx.getStorageSync('avatarUrl') || 'https://www.lpc-zhaopin.com/sharing.png',
+            css: {
+              top: '130rpx',
+              left: '325rpx',
+              width: '150rpx',
+              height: '150rpx',
+              borderWidth: '6rpx',
+              borderColor: '#FFF',
+              borderRadius: '96rpx'
+            }
+          },
+          {
+            type: 'text',
+            text: wx.getStorageSync('nickName') || '鹅选HR',
+            css: {
+              top: '300rpx',
+              fontSize: '50rpx',
+              left: '400rpx',
+              align: 'center',
+              color: '#3c3c3c'
+            }
+          },
+          {
+            type: 'text',
+            text: `给您分享了一个专家`,
+            css: {
+              top: '400rpx',
+              left: '400rpx',
+              align: 'center',
+              fontSize: '40rpx',
+              color: '#3c3c3c'
+            }
+          },
+          {
+            type: 'text',
+            text: that.data.data.name || "未知姓名",
+            css: {
+              top: '480rpx',
+              left: '400rpx',
+              maxLines: 1,
+              align: 'center',
+              fontWeight: 'bold',
+              fontSize: '60rpx',
+              color: '#3c3c3c'
+            }
+          },
+          {
+            type: 'image',
+            url: 'https://www.lpc-zhaopin.com/sharing.png',
+            css: {
+              top: '834rpx',
+              left: '470rpx',
+              width: '200rpx',
+              height: '200rpx'
+            }
+          }
+        ]
+      }
+    })
+  },
+  onImgErr(e) {
+    wx.hideLoading()
+    wx.showToast({
+      title: '生成分享图失败，请刷新页面重试'
+    })
+  },
+  onImgOK(e) {
+    wx.hideLoading()
+    this.setData({
+      sharePath: e.detail.path
+    })
   }
+
 })

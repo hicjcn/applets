@@ -161,6 +161,9 @@ Page({
       hasUserInfo: true
     })
 
+    wx.setStorageSync('avatarUrl', detail.userInfo.avatarUrl)
+    wx.setStorageSync('nickName', detail.userInfo.nickName)
+
     // 尝试登陆
     this.login()
   },
