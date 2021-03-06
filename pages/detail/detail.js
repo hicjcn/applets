@@ -237,7 +237,7 @@ Page({
             type: 'text',
             text: `给您分享了一个专家`,
             css: {
-              top: '400rpx',
+              top: '390rpx',
               left: '400rpx',
               align: 'center',
               fontSize: '40rpx',
@@ -248,7 +248,7 @@ Page({
             type: 'text',
             text: that.data.data.name || "未知姓名",
             css: {
-              top: '480rpx',
+              top: '470rpx',
               left: '400rpx',
               maxLines: 1,
               align: 'center',
